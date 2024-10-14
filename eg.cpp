@@ -41,6 +41,7 @@ void extract_registers(const std::string& instruction, std::string& dest_reg, st
     size_t space_pos = registers_part.find(' ');
     size_t comma_pos = registers_part.find(',');
 
+    // Check if we found both destination and source registers
     if (space_pos != std::string::npos && comma_pos != std::string::npos) {
         dest_reg = trim(registers_part.substr(space_pos + 1, comma_pos - space_pos - 1));
         std::string sources_part = registers_part.substr(comma_pos + 1);
@@ -51,6 +52,12 @@ void extract_registers(const std::string& instruction, std::string& dest_reg, st
 
 // Function to check destination register usage
 bool dest_reg_checker(const std::vector<std::string>& instructions, int start, int end) {
+    // Check if start and end indices are valid
+    if (start < 0 || end >= instructions.size() || start > end) {
+        std::cerr << "Error: Invalid range for instructions.\n";
+        return false;
+    }
+
     std::string first_dest_reg, last_dest_reg;
 
     // Extract the destination register from the first instruction
