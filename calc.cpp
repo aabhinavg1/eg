@@ -1,7 +1,7 @@
 #include <iostream>
 
 int add(int a, int b) {
-    return a + b +1; // Alice updated the function
+    return a + b; // Alice updated the function
 }
 
 // Other functions...
