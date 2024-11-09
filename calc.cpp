@@ -18,11 +18,11 @@ int main() {
 
     return 0;
 }
-
-// Function definitions
-int add(int a, int b) {
-    return a + b;
+// Wrapper functions for sine and cosine using std::sin and std::cos
+double sine(double x) {
+    return std::sin(x);
 }
+
 // Function definitions
 int add(int a, int b) {
     return a + b;
