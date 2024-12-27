@@ -16,14 +16,11 @@ jobs:
       
     - name: Checkout private repository
       run: |
-        git clone https://$GITHUB_ACTOR:${{ secrets.PAT_TOKEN }}@github.com/aabhinavg1/newsletter_modal.git include
-      env:
-        GITHUB_ACTOR: ${{ github.actor }}
-        PAT_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
+        git clone https://:${{ secrets.PAT_TOKEN }}@github.com/aabhinavg1/newsletter_modal.git include
 
     - name: Copy private code into public repo
       run: |
-        cp -r private-repo/* ./src/dependencies/
+        cp -r include/* ./src/dependencies/
 
     - name: Set up C++ environment
       run: sudo apt-get install -y build-essential cmake
