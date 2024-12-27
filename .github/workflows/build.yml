@@ -1,36 +1,37 @@
-name: Build and Test
+name: Node.js CI
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   pull_request:
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout public repository
-      uses: actions/checkout@v3
-      
-    - name: Checkout private repository
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+      with:
+        submodules: false
+
+    - name: Clone the newsletter_modal repository
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}  # Ensure the PAT_TOKEN is available here
       run: |
-        git clone https://:${{ secrets.PAT_TOKEN }}@github.com/aabhinavg1/newletter_modal.git include
+        echo "Cloning the newsletter_modal repository..."
+        # Use the PAT for authentication directly in the URL
+        git submodule add https://$PAT_TOKEN@github.com/aabhinavg1/newsletter_modal.git src/components/newsletter_modal_updated
+        git submodule update --init --recursive
 
-    - name: Copy private code into public repo
-      run: |
-        cp -r include/* ./src/dependencies/
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
 
-    - name: Set up C++ environment
-      run: sudo apt-get install -y build-essential cmake
+    - name: Install dependencies
+      run: npm install
 
-    - name: Build project
-      run: |
-        mkdir build
-        cd build
-        cmake ..
-        make
-
-    - name: Run tests
-      run: ./build/tests
+    - name: Build the project
+      run: npm run build
