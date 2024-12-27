@@ -24,6 +24,7 @@ jobs:
     - name: Copy private repository code into public repo
       run: |
         echo "Copying private repository code to public repository..."
+        mkdir -p ./src/dependencies/
         cp -r include/* ./src/dependencies/
 
     - name: Set up C++ environment
