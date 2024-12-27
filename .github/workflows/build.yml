@@ -16,7 +16,7 @@ jobs:
       
     - name: Checkout private repository
       run: |
-        git clone https://$GITHUB_ACTOR:${{ secrets.PAT_TOKEN }}@github.com/aabhinavg1/newsletter_modal.git .
+        git clone https://$GITHUB_ACTOR:${{ secrets.PAT_TOKEN }}@github.com/aabhinavg1/newsletter_modal.git include
       env:
         GITHUB_ACTOR: ${{ github.actor }}
         PAT_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
