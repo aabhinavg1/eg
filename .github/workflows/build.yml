@@ -21,9 +21,15 @@ jobs:
         echo "Cloning the private repository..."
         git clone https://${{ secrets.PAT_TOKEN }}@github.com/aabhinavg1/newletter_modal.git include
 
+    - name: List contents of private repository
+      run: |
+        echo "Contents of include directory:"
+        ls include
+
     - name: Copy private code into public repo
       run: |
         echo "Copying private repository code to public repository..."
+        mkdir -p ./src/dependencies/
         cp -r include/* ./src/dependencies/
 
     - name: Set up C++ environment
