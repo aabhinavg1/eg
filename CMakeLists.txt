@@ -25,9 +25,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 # For example, if you use a library or another module
 # target_link_libraries(${PROJECT_NAME} PRIVATE some_library)
 
-# If you have tests, you can add them like this
-enable_testing()
-add_subdirectory(tests)
-
 # Optional: specify where the output files should be generated
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
