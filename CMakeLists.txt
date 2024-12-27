@@ -5,19 +5,20 @@ cmake_minimum_required(VERSION 3.10)
 project(YourProjectName VERSION 1.0)
 
 # Specify the C++ standard to use
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add the source files for your project
 # Adjust this according to the structure of your project
 add_executable(${PROJECT_NAME}
-    main.cpp
-    include/other_file.cpp
+    main.cpp          # Your main application file
+    src/dependencies/Subscriber.cpp  # Include Subscriber.cpp from the dependencies folder
 )
 
 # Add include directories for the project
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/include  # If there are any header files in include, include that folder
+    ${PROJECT_SOURCE_DIR}/src/dependencies  # Add the dependencies folder for Subscriber.h
 )
 
 # If you have dependencies, you can link them here
