@@ -1,0 +1,39 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout public repository
+      uses: actions/checkout@v3
+
+    - name: Checkout private repository
+      run: |
+        git clone https://$GITHUB_ACTOR:${{ secrets.PRIVATE_REPO_TOKEN }}@github.com/<username>/<private-repo>.git private-repo
+      env:
+        GITHUB_ACTOR: ${{ github.actor }}
+        PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_TOKEN }}
+
+    - name: Copy private code into public repo
+      run: |
+        cp -r private-repo/* ./src/dependencies/
+
+    - name: Set up C++ environment
+      run: sudo apt-get install -y build-essential cmake
+
+    - name: Build project
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+
+    - name: Run tests
+      run: ./build/tests
