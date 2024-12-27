@@ -16,7 +16,7 @@ jobs:
       
     - name: Checkout private repository
       run: |
-        git clone https://:${{ secrets.PAT_TOKEN }}@github.com/aabhinavg1/newsletter_modal.git include
+        git clone https://:${{ secrets.PAT_TOKEN }}@github.com/aabhinavg1/newletter_modal.git include
 
     - name: Copy private code into public repo
       run: |
